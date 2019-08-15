@@ -13,8 +13,12 @@ class SinglePost extends Component {
     const { postId } = this.props;
     return(
       <div className="single-post">
-        <h1>{ postId.title }</h1>
-        <p>{ postId.body }</p>
+        <div className="hero fluid-container">
+          <h1>{ postId.title }</h1>
+        </div>
+        <div className="container">
+          <p>{ postId.body }</p>
+        </div>
       </div>
     )
   }

@@ -28,7 +28,7 @@ const posts = (state = getInitialState(), { type, payload }) => {
     case actionTypes.FETCH_POSTS_SUCCESS:
       return {
         ...state,
-        posts: [...state.posts, ...payload.posts],
+        posts: payload.posts,
         isFetching: false,
       };
     default:

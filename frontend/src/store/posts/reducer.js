@@ -3,6 +3,7 @@ import { actionTypes } from './actions';
 const getInitialState = () => ({
   posts: [],
   postId: {},
+  postComments: [],
   isFetching: false,
   error: '',
 });
@@ -19,6 +20,11 @@ const posts = (state = getInitialState(), { type, payload }) => {
         ...state,
         ...payload,
       };
+    case actionTypes.FETCH_POST_COMMENTS_REQUEST:
+      return {
+        ...state,
+        ...payload,
+      };
     case actionTypes.FETCH_POST_BY_ID_SUCCESS:
       return {
         ...state,
@@ -29,6 +35,12 @@ const posts = (state = getInitialState(), { type, payload }) => {
       return {
         ...state,
         posts: payload.posts,
+        isFetching: false,
+      };
+    case actionTypes.FETCH_POST_COMMENTS_SUCCESS:
+      return {
+        ...state,
+        postComments: payload.postComments,
         isFetching: false,
       };
     default:

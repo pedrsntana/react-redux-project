@@ -8,7 +8,7 @@ import './PostItem.scss';
 
 const PostItem = ({id, title, author, category, voteScore, commentCount}) => {
   return(
-    <div className="post col-md-3">
+    <div className="col-md-3 post">
       <PostContent id={id} category={category} title={title} author={author} />
       <PostMeta voteScore={voteScore} commentCount={commentCount} />
       <PostControls />

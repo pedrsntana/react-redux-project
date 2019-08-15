@@ -1,6 +1,26 @@
 .App {
   text-align: center;
-  .page-title {
-    margin: 3% 0;
+  padding-bottom: 7%;
+  .header {
+    background-color: #090909;
+    color: #fff;
+    padding: 10px;
+    font-weight: 900;
+    a {
+      color: #fff;
+    }
+  }
+  .hero {
+    background-color: #131313;
+    color: #fff;
+    padding: 10% 0;
+    text-align: center;
+  }
+  .posts-list {
+    position: relative;
+    margin-top: -5%;
+    .post {
+      background-color: #fff;
+    }
   }
 }

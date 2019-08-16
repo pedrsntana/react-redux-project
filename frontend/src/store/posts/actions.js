@@ -10,6 +10,15 @@ export const actionTypes = {
   FETCH_POST_COMMENTS_REQUEST: 'FETCH_POST_COMMENTS_REQUEST',
   FETCH_POST_COMMENTS_SUCCESS: 'FETCH_POST_COMMENTS_SUCCESS',
   FETCH_POST_COMMENTS_FAILURE: 'FETCH_POST_COMMENTS_FAILURE',
+  POST_NEW_POST_REQUEST: 'POST_NEW_POST_REQUEST',
+  POST_NEW_POST_SUCCESS: 'POST_NEW_POST_SUCCESS',
+  POST_NEW_POST_FAILURE: 'POST_NEW_POST_FAILURE',
+  POST_NEW_COMMENT_REQUEST: 'POST_NEW_COMMENT_REQUEST',
+  POST_NEW_COMMENT_SUCCESS: 'POST_NEW_COMMENT_SUCCESS',
+  POST_NEW_COMMENT_FAILURE: 'POST_NEW_COMMENT_FAILURE',
+  DELETE_POST_REQUEST: 'DELETE_POST_REQUEST',
+  DELETE_POST_SUCCESS: 'DELETE_POST_SUCCESS',
+  DELETE_POST_FAILURE: 'DELETE_POST_FAILURE',
 }
 
 const action = ( type, payload ) => ({ type, payload });
@@ -44,6 +53,35 @@ const actions = {
         .catch(error => dispatch(action(actionTypes.FETCH_POST_COMMENTS_FAILURE)));
     }
   },
+  createNewPost: (payload = {}) => {
+    return dispatch => {
+      dispatch(action(actionTypes.POST_NEW_POST_REQUEST, payload));
+      return serverApi
+        .postNewPost(payload)
+        .then(post => dispatch(action(actionTypes.POST_NEW_POST_SUCCESS, { post })))
+        .catch(error =>  dispatch(action(actionTypes.POST_NEW_POST_FAILURE)));
+    }
+  },
+  createNewComment: (payload = {}) => {
+    return dispatch => {
+      dispatch(action(actionTypes.POST_NEW_COMMENT_REQUEST, payload));
+      return serverApi
+        .postNewComment(payload)
+        .then(comment => dispatch(action(actionTypes.POST_NEW_COMMENT_SUCCESS, { comment })))
+        .catch(error => dispatch(action(actionTypes.POST_NEW_COMMENT_FAILURE, error)));
+
+    }
+  },
+  deletePost: (payload = {}) => {
+    const id = payload;
+    return dispatch => {
+      dispatch(action(actionTypes.DELETE_POST_REQUEST, payload));
+      return serverApi
+        .deletePost(id)
+        .then(() => dispatch(action(actionTypes.DELETE_POST_SUCCESS)))
+        .catch(error => dispatch(action(actionTypes.DELETE_POST_FAILURE)));
+    }
+  }
 };
 
 export default actions;

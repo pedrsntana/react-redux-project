@@ -4,11 +4,25 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // Components
+import PageNotFound from 'pages/PageNotFound';
 import SinglePostMeta from './SinglePostMeta';
+import Comments from 'components/Comments';
+import CommentForm from 'components/CommentForm';
 
 import 'styles/page.scss';
+import './SinglePost.scss';
 
 class SinglePost extends Component {
+  submit = values => {
+    this.props.createNewComment({
+      id: Date.now().toString(),
+      author: values.author,
+      body: values.body,
+      voteScore: 0,
+      parentId: this.props.id,
+    });
+  }
+
   componentDidMount() {
     this.props.fetchPostById();
     this.props.fetchPostComments();
@@ -16,11 +30,13 @@ class SinglePost extends Component {
 
   render() {
     const { postId, postComments } = this.props;
-    // const  { postComments } = this.props.postComments;
-    console.log('[]')
-    console.log('[postComments_package]', postId);
+    if(!postId.title) {
+      return(
+        <PageNotFound />
+      )
+    }
     return(
-      <div className="page">
+      <div className="page single-post">
         <div className="header"><Link to="/">BACK</Link></div>
         <div className="hero fluid-container">
 
@@ -28,27 +44,20 @@ class SinglePost extends Component {
         </div>
         <div className="content container">
           <div className="col-md-8 offset-md-2">
-            <SinglePostMeta author={ postId.author } voteScore={ postId.voteScore } commentCount={ postId.commentCount }/>
+            <SinglePostMeta deletePost={this.props.deletePost} author={ postId.author } voteScore={ postId.voteScore } commentCount={ postId.commentCount }/>
             <p className="post-body">{ postId.body }</p>
           </div>
         </div>
         <div className="comments container">
-         {postId.commentCount === '0' ? '' : <h3 className="comments-title">Comments</h3>}
-         { postComments.map(comment => (
-           <div className="comment col-md-8 offset-md-2" key={ comment.id }>
-               <div className="divider"></div>
-               <div className="comment-meta">
-                 <p><span className="label">Author: </span>{ comment.author }</p>
-                 <p><span className="label">Score: </span>{ comment.voteScore }</p>
-                 <div className="comment-controls">
-                   <p><span className="label">Edit</span></p>
-                   <p>l</p>
-                   <p><span className="label">Delete</span></p>
-                 </div>
-               </div>
-               <p><span className="label">Comment:</span> { comment.body }</p>
-            </div>
-           )) }
+         {postId.commentCount === '0' ? '' :
+          <div className="container">
+            <h3 className="comments-title">Comments</h3>
+            <div className="new-comment-form col-md-8 offset-md-2"><CommentForm onSubmit={this.submit}/></div>
+            <Comments postComments={postComments} />
+          </div>
+
+         }
+
 
         </div>
       </div>
@@ -61,6 +70,7 @@ const mapStateToProps = (state, ownProps) => {
     postId: state.posts.postId,
     postComments: state.posts.postComments,
     isFetching: state.posts.isFetching,
+    id: ownProps.match.params.id,
   }
 };
 
@@ -68,6 +78,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchPostById: () => dispatch(actions.fetchPostById(ownProps.match.params.id)),
     fetchPostComments: () => dispatch(actions.fetchPostComments(ownProps.match.params.id)),
+    createNewComment: () => dispatch(actions.createNewComment()),
+    deletePost: () => dispatch(actions.deletePost(ownProps.match.params.id)),
   }
 };
 

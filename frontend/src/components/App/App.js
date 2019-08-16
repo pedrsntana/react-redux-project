@@ -16,7 +16,7 @@ class App extends Component {
         <div className="hero fluid-container">
           <h1 className="page-title">{"//"} News</h1>
         </div>
-        <PostList list={posts}/>
+        <PostList list={posts} deleteFunc={this.props.deletePost}/>
       </div>
     );
   }

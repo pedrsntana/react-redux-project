@@ -1,0 +1,48 @@
+.input {
+  border: none;
+  &:focus {
+    outline: none;
+  }
+}
+
+.hero {
+  .input {
+    background-color: #131313;
+    color: #f0f0f0;
+    text-align: center;
+  }
+  .category-input {
+    font-family: 'Roboto', sans-serif;
+  }
+
+  .title-input {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 48pt;
+  }
+}
+
+.author-input {
+  text-align: center;
+  width: 33%;
+  margin: 5% auto 0 auto;
+}
+
+.body-input {
+  color: #131313;
+  width: 45%;
+  height: 50vh;
+  margin-top: 5%;;
+  text-align: left;
+}
+
+.submit-button {
+  background-color: #ffb700;
+  color: #131313;
+  width: 33%;
+  height: 50px;
+  margin: 5% 0;
+  border-radius: 50px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}

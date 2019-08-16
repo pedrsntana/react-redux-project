@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchPosts: () => dispatch(actions.fetchPosts()),
+  deletePost: (id) => dispatch(actions.deletePost(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps,)(App);

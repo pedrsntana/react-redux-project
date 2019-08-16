@@ -3,10 +3,10 @@ import PostItem from 'components/PostItem';
 import './PostList.scss';
 
 
-const PostList = ({ list }) =>
+const PostList = ({ list, deleteFunc }) =>
   <div className="posts-list container">
    {list.map(post => (
-     <PostItem key={post.id} {...post}/>
+     <PostItem key={post.id} {...post} deleteFunc={deleteFunc} />
    ))}
   </div>
 

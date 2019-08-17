@@ -12,11 +12,13 @@ class App extends Component {
     const { posts } = this.props;
     return (
       <div className="App">
-        <div className="header"><Link to="/posts/new">+ New Post</Link></div>
+        <div className="header">
+          <Link className="new-post-link" to="/posts/new">+ New Post</Link>
+        </div>
         <div className="hero fluid-container">
           <h1 className="page-title">{"//"} News</h1>
         </div>
-        <PostList list={posts} deleteFunc={this.props.deletePost}/>
+        <PostList postList={posts} deleteFunc={this.props.deletePost}/>
       </div>
     );
   }

@@ -37,12 +37,7 @@ class NewPost extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    newPost: state.posts.newPost,
 
-  }
-};
 
 const mapDispatchToProps = (dispatch, ) => {
   return {
@@ -51,4 +46,4 @@ const mapDispatchToProps = (dispatch, ) => {
 };
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewPost);
+export default connect(null, mapDispatchToProps)(NewPost);

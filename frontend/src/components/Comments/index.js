@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Comments = ({postComments}) => {
+const Comments = ({postComments, deleteComment}) => {
   return(
     <div>
     { postComments.map(comment => (
@@ -12,7 +12,7 @@ const Comments = ({postComments}) => {
           <div className="comment-controls">
             <p><span className="label">Edit</span></p>
             <p>l</p>
-            <p><span className="label">Delete</span></p>
+            <p onClick={deleteComment}><span className="label">Delete</span></p>
           </div>
         </div>
         <p><span className="label">Comment:</span> { comment.body }</p>

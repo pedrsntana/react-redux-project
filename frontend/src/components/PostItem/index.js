@@ -9,11 +9,7 @@ import PostControls from "./PostControls";
 import './PostItem.scss';
 
 
-class PostItem extends Component {
-  constructor(props) {
-    super(props);
-  }
-  
+class PostItem extends Component {  
   render() {
     const { id, category, title, author, voteScore, commentCount, deletePost } = this.props;
     return(

@@ -1,9 +1,8 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 
 let CommentForm = (props) => {
-  const { handleSubmit } = props;
+  const { handleSubmit } = props
   return(
     <form onSubmit={handleSubmit}>
       <div className="body-container">

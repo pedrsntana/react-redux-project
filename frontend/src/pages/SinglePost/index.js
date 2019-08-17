@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import actions from 'store/posts/actions.js';
+import postsActions from 'store/posts/actions';
+import commentsActions from 'store/comments/actions';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -19,7 +20,7 @@ class SinglePost extends Component {
       author: values.author,
       body: values.body,
       voteScore: 0,
-      parentId: this.props.id,
+      parentId: this.props.postId.id,
     });
   }
 
@@ -53,7 +54,7 @@ class SinglePost extends Component {
           <div className="container">
             <h3 className="comments-title">Comments</h3>
             <div className="new-comment-form col-md-8 offset-md-2"><CommentForm onSubmit={this.submit}/></div>
-            <Comments postComments={postComments} />
+            <Comments postComments={postComments} deleteComment={this.props.deleteComment} />
           </div>
 
          }
@@ -68,18 +69,18 @@ class SinglePost extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     postId: state.posts.postId,
-    postComments: state.posts.postComments,
-    isFetching: state.posts.isFetching,
-    id: ownProps.match.params.id,
+    postComments: state.comments.postComments,
+
   }
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchPostById: () => dispatch(actions.fetchPostById(ownProps.match.params.id)),
-    fetchPostComments: () => dispatch(actions.fetchPostComments(ownProps.match.params.id)),
-    createNewComment: () => dispatch(actions.createNewComment()),
-    deletePost: () => dispatch(actions.deletePost(ownProps.match.params.id)),
+    fetchPostById: () => dispatch(postsActions.fetchPostById(ownProps.match.params.id)),
+    fetchPostComments: () => dispatch(commentsActions.fetchPostComments(ownProps.match.params.id)),
+    createNewComment: (values) => dispatch(commentsActions.createNewComment(values)),
+    deletePost: () => dispatch(postsActions.deletePost(ownProps.match.params.id)),
+    // deleteComment: (values) => dispatch(commentsActions.deleteCommentInPost(ownProps.match.params.id)),
   }
 };
 

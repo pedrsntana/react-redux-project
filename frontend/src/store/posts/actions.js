@@ -7,15 +7,9 @@ export const actionTypes = {
   FETCH_POST_BY_ID_REQUEST: 'FETCH_POST_BY_ID_REQUEST',
   FETCH_POST_BY_ID_SUCCESS: 'FETCH_POST_BY_ID_SUCCESS',
   FETCH_POST_BY_ID_FAILURE: 'FETCH_POST_BY_ID_FAILURE',
-  FETCH_POST_COMMENTS_REQUEST: 'FETCH_POST_COMMENTS_REQUEST',
-  FETCH_POST_COMMENTS_SUCCESS: 'FETCH_POST_COMMENTS_SUCCESS',
-  FETCH_POST_COMMENTS_FAILURE: 'FETCH_POST_COMMENTS_FAILURE',
   POST_NEW_POST_REQUEST: 'POST_NEW_POST_REQUEST',
   POST_NEW_POST_SUCCESS: 'POST_NEW_POST_SUCCESS',
   POST_NEW_POST_FAILURE: 'POST_NEW_POST_FAILURE',
-  POST_NEW_COMMENT_REQUEST: 'POST_NEW_COMMENT_REQUEST',
-  POST_NEW_COMMENT_SUCCESS: 'POST_NEW_COMMENT_SUCCESS',
-  POST_NEW_COMMENT_FAILURE: 'POST_NEW_COMMENT_FAILURE',
   DELETE_POST_REQUEST: 'DELETE_POST_REQUEST',
   DELETE_POST_SUCCESS: 'DELETE_POST_SUCCESS',
   DELETE_POST_FAILURE: 'DELETE_POST_FAILURE',
@@ -23,7 +17,7 @@ export const actionTypes = {
 
 const action = ( type, payload ) => ({ type, payload });
 
-const actions = {
+const postsActions = {
   fetchPosts: (payload = {}) => {
     return dispatch => {
       dispatch(action(actionTypes.FETCH_POSTS_REQUEST, payload));
@@ -43,16 +37,6 @@ const actions = {
         .catch(error => dispatch(action(actionTypes.FETCH_POST_BY_ID_FAILURE)));
     }
   },
-  fetchPostComments: (payload = {}) => {
-    const id = payload;
-    return dispatch => {
-      dispatch(action(actionTypes.FETCH_POST_COMMENTS_REQUEST, payload));
-      return serverApi
-        .getPostComments(id)
-        .then(postComments => dispatch(action(actionTypes.FETCH_POST_COMMENTS_SUCCESS, { postComments })))
-        .catch(error => dispatch(action(actionTypes.FETCH_POST_COMMENTS_FAILURE)));
-    }
-  },
   createNewPost: (payload = {}) => {
     return dispatch => {
       dispatch(action(actionTypes.POST_NEW_POST_REQUEST, payload));
@@ -60,16 +44,6 @@ const actions = {
         .postNewPost(payload)
         .then(post => dispatch(action(actionTypes.POST_NEW_POST_SUCCESS, { post })))
         .catch(error =>  dispatch(action(actionTypes.POST_NEW_POST_FAILURE)));
-    }
-  },
-  createNewComment: (payload = {}) => {
-    return dispatch => {
-      dispatch(action(actionTypes.POST_NEW_COMMENT_REQUEST, payload));
-      return serverApi
-        .postNewComment(payload)
-        .then(comment => dispatch(action(actionTypes.POST_NEW_COMMENT_SUCCESS, { comment })))
-        .catch(error => dispatch(action(actionTypes.POST_NEW_COMMENT_FAILURE, error)));
-
     }
   },
   deletePost: (payload = {}) => {
@@ -84,4 +58,4 @@ const actions = {
   }
 };
 
-export default actions;
+export default postsActions;
